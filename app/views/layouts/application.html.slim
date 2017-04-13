@@ -30,6 +30,16 @@ html
           ul.nav.navbar-nav
             li.active
               = link_to "Home", "#"
+          ul.nav.navbar-nav.navbar-right
+            - if logged_in?
+              li.navbar-text= current_user.name
+              li= link_to 'Logout', logout_path
+            - else
+              li
+                = link_to auth_path(provider: 'github'), class: "btn btn-block btn-social btn-github" do
+                  span.fa.fa-github
+                  | login 
+
     .container
       - flash.each do |name, msg|
         = content_tag :div, class: "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do
